@@ -11,29 +11,29 @@ import com.gemstone.gemfire.cache.CacheFactory;
 import com.gemstone.gemfire.cache.server.CacheServer;
 
 public class GemfireServer {
-	private int serverPort;
+	private static final String DISABLE_MULTICAST = "0";
+
 	private Cache cache;
 
-	public GemfireServer(int serverPort) {
-		this.serverPort = serverPort;
-		this.cache = new CacheFactory().set("mcast-port", "0").create();
+	public GemfireServer(int serverPort, CacheRegion... regions) {
+		this.cache = new CacheFactory().set("mcast-port", DISABLE_MULTICAST).create();
+		configureCacheServer(serverPort);
+		configureRegions(regions);
 	}
 
-	public void start() throws IOException {
-		configureRegions("EMPLOYEES", "GROCERIES");
-		startCacheServer();
+	private void configureCacheServer(int serverPort) {
+		CacheServer cacheServer = cache.addCacheServer();
+		cacheServer.setPort(serverPort);
 	}
 
-	private void configureRegions(String... regions) {
-		for (String region : regions) {
-			cache.createRegionFactory(REPLICATE).create(region);
+	private void configureRegions(CacheRegion... regions) {
+		for (CacheRegion region : regions) {
+			cache.createRegionFactory(REPLICATE).create(region.name());
 		}
 	}
 
-	private void startCacheServer() throws IOException {
-		CacheServer cacheServer = cache.addCacheServer();
-		cacheServer.setPort(serverPort);
-		cacheServer.start();
+	public void start() throws IOException {
+		this.cache.getCacheServers().get(0).start();
 	}
 
 	public void stop() {
@@ -45,13 +45,13 @@ public class GemfireServer {
 		return cacheServers.size() == 0 ? false : cacheServers.get(0).isRunning();
 	}
 
-	public void populate(String region, CacheItem cacheItem) {
-		cache.getRegion(region).put(cacheItem.getId(), cacheItem);
+	public void populate(CacheRegion region, CacheItem cacheItem) {
+		cache.getRegion(region.name()).put(cacheItem.getId(), cacheItem);
 	}
 
-	public String print(String region) {
+	public String print(CacheRegion region) {
 		StringBuilder cacheItems = new StringBuilder();
-		for (Entry<Object, Object> cacheItem : cache.getRegion(region).entrySet()) {
+		for (Entry<Object, Object> cacheItem : cache.getRegion(region.name()).entrySet()) {
 			cacheItems.append(cacheItem.getValue() + "\n");
 		}
 		return cacheItems.toString();

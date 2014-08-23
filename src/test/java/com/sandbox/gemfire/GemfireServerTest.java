@@ -1,5 +1,7 @@
 package com.sandbox.gemfire;
 
+import static com.sandbox.gemfire.CacheRegion.EMPLOYEES;
+import static com.sandbox.gemfire.CacheRegion.GROCERIES;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -16,7 +18,7 @@ public class GemfireServerTest {
 
 	@Before public void
 	initialise() {
-		gemfireServer = new GemfireServer(SERVER_PORT);
+		gemfireServer = new GemfireServer(SERVER_PORT, EMPLOYEES, GROCERIES);
 	}
 
 	@After public void
@@ -48,27 +50,27 @@ public class GemfireServerTest {
 	printsGroceryDetails_WhenCacheIsPopulatedWithGrocery() throws IOException {
 		gemfireServer.start();
 
-		gemfireServer.populate("GROCERIES", new Grocery(101, "Apple", "£0.30"));
+		gemfireServer.populate(GROCERIES, new Grocery(101, "Apple", "£0.30"));
 
-		assertThat(gemfireServer.print("GROCERIES"), is("id: 101, name: Apple, price: £0.30\n"));
+		assertThat(gemfireServer.print(GROCERIES), is("id: 101, name: Apple, price: £0.30\n"));
 	}
 
 	@Test public void
 	printsEmployeeDetails_WhenCacheIsPopulatedWithEmployee() throws IOException {
 		gemfireServer.start();
 
-		gemfireServer.populate("EMPLOYEES", new Employee(501, "Jon", "Eland", "Cashier"));
+		gemfireServer.populate(EMPLOYEES, new Employee(501, "Jon", "Eland", "Cashier"));
 
-		assertThat(gemfireServer.print("EMPLOYEES"), is("id: 501, firstName: Jon, surname: Eland, role: Cashier\n"));
+		assertThat(gemfireServer.print(EMPLOYEES), is("id: 501, firstName: Jon, surname: Eland, role: Cashier\n"));
 	}
 
 	@Test public void
 	printsMultipleGroceryDetails_WhenCacheIsPopulatedWithMultipleGroceries() throws IOException {
 		gemfireServer.start();
 
-		gemfireServer.populate("GROCERIES", new Grocery(101, "Apple", "£0.30"));
-		gemfireServer.populate("GROCERIES", new Grocery(102, "Banana", "£0.15"));
+		gemfireServer.populate(GROCERIES, new Grocery(101, "Apple", "£0.30"));
+		gemfireServer.populate(GROCERIES, new Grocery(102, "Banana", "£0.15"));
 
-		assertThat(gemfireServer.print("GROCERIES"), is("id: 102, name: Banana, price: £0.15\nid: 101, name: Apple, price: £0.30\n"));
+		assertThat(gemfireServer.print(GROCERIES), is("id: 102, name: Banana, price: £0.15\nid: 101, name: Apple, price: £0.30\n"));
 	}
 }
