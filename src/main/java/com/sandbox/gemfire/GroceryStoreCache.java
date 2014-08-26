@@ -10,12 +10,12 @@ import com.gemstone.gemfire.cache.Cache;
 import com.gemstone.gemfire.cache.CacheFactory;
 import com.gemstone.gemfire.cache.server.CacheServer;
 
-public class GemfireServer {
+public class GroceryStoreCache {
 	private static final String DISABLE_MULTICAST = "0";
 
 	private Cache cache;
 
-	public GemfireServer(int serverPort, CacheRegion... regions) {
+	public GroceryStoreCache(int serverPort, CacheRegion... regions) {
 		this.cache = new CacheFactory().set("mcast-port", DISABLE_MULTICAST).create();
 		configureCacheServer(serverPort);
 		configureRegions(regions);
