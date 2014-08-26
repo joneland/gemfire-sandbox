@@ -16,7 +16,7 @@ public class GroceryStoreCache {
 	private Cache cache;
 
 	public GroceryStoreCache(int serverPort, CacheRegion... regions) {
-		this.cache = new CacheFactory().set("mcast-port", DISABLE_MULTICAST).create();
+		cache = new CacheFactory().set("mcast-port", DISABLE_MULTICAST).create();
 		configureCacheServer(serverPort);
 		configureRegions(regions);
 	}
@@ -33,7 +33,7 @@ public class GroceryStoreCache {
 	}
 
 	public void start() throws IOException {
-		this.cache.getCacheServers().get(0).start();
+		cache.getCacheServers().get(0).start();
 	}
 
 	public void stop() {
