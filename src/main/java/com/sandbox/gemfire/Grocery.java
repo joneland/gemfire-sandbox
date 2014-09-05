@@ -2,9 +2,7 @@ package com.sandbox.gemfire;
 
 import static java.lang.String.format;
 
-import java.io.Serializable;
-
-public class Grocery implements Serializable, CacheItem {
+public class Grocery implements CacheItem {
 	private static final long serialVersionUID = -1145880717859373291L;
 
 	private int id;

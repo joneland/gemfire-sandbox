@@ -1,6 +1,6 @@
 package com.sandbox.gemfire;
 
-import static com.gemstone.gemfire.cache.RegionShortcut.REPLICATE;
+import static com.gemstone.gemfire.cache.RegionShortcut.LOCAL;
 
 import java.io.IOException;
 import java.util.List;
@@ -28,7 +28,7 @@ public class GroceryStoreCache {
 
 	private void configureRegions(CacheRegion... regions) {
 		for (CacheRegion region : regions) {
-			cache.createRegionFactory(REPLICATE).create(region.name());
+			cache.createRegionFactory(LOCAL).create(region.name());
 		}
 	}
 

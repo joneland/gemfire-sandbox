@@ -1,8 +1,8 @@
 package com.sandbox.gemfire;
 
-import java.io.Serializable;
+import static java.lang.String.format;
 
-public class Employee implements Serializable, CacheItem {
+public class Employee implements CacheItem {
 	private static final long serialVersionUID = 5267646543432714142L;
 
 	private int id;
@@ -34,6 +34,6 @@ public class Employee implements Serializable, CacheItem {
 	}
 
 	public String toString() {
-		return String.format("id: %d, firstName: %s, surname: %s, role: %s", id, firstName, surname, role);
+		return format("id: %d, firstName: %s, surname: %s, role: %s", id, firstName, surname, role);
 	}
 }

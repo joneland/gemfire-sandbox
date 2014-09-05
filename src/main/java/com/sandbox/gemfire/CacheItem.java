@@ -1,5 +1,7 @@
 package com.sandbox.gemfire;
 
-public interface CacheItem {
+import java.io.Serializable;
+
+public interface CacheItem extends Serializable {
 	int getId();
 }
