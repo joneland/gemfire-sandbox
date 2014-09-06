@@ -1,7 +1,7 @@
-package com.sandbox.gemfire;
+package com.sandbox.gemfire.server;
 
-import static com.sandbox.gemfire.CacheRegion.EMPLOYEES;
-import static com.sandbox.gemfire.CacheRegion.GROCERIES;
+import static com.sandbox.gemfire.server.CacheRegion.EMPLOYEES;
+import static com.sandbox.gemfire.server.CacheRegion.GROCERIES;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -10,6 +10,10 @@ import java.io.IOException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import com.sandbox.gemfire.server.GroceryStoreCache;
+import com.sandbox.gemfire.server.item.Employee;
+import com.sandbox.gemfire.server.item.Grocery;
 
 public class GroceryStoreCacheTest {
 	private static final int SERVER_PORT = 10000;

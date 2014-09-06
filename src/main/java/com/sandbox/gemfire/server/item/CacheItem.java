@@ -1,4 +1,4 @@
-package com.sandbox.gemfire;
+package com.sandbox.gemfire.server.item;
 
 import java.io.Serializable;
 

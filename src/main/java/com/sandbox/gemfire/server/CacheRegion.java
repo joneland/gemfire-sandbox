@@ -1,4 +1,4 @@
-package com.sandbox.gemfire;
+package com.sandbox.gemfire.server;
 
 public enum CacheRegion {
 	EMPLOYEES,

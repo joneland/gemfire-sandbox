@@ -1,4 +1,4 @@
-package com.sandbox.gemfire;
+package com.sandbox.gemfire.server;
 
 import static com.gemstone.gemfire.cache.RegionShortcut.LOCAL;
 
@@ -9,6 +9,7 @@ import java.util.Map.Entry;
 import com.gemstone.gemfire.cache.Cache;
 import com.gemstone.gemfire.cache.CacheFactory;
 import com.gemstone.gemfire.cache.server.CacheServer;
+import com.sandbox.gemfire.server.item.CacheItem;
 
 public class GroceryStoreCache {
 	private static final String DISABLE_MULTICAST = "0";
