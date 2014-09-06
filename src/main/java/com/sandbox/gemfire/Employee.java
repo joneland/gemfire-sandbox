@@ -21,18 +21,6 @@ public class Employee implements CacheItem {
 		return id;
 	}
 
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public String getSurname() {
-		return surname;
-	}
-
-	public String getRole() {
-		return role;
-	}
-
 	public String toString() {
 		return format("id: %d, firstName: %s, surname: %s, role: %s", id, firstName, surname, role);
 	}

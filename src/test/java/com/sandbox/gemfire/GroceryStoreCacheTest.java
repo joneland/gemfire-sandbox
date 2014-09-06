@@ -73,4 +73,14 @@ public class GroceryStoreCacheTest {
 
 		assertThat(groceryStoreCache.print(GROCERIES), is("id: 102, name: Banana, price: £0.15\nid: 101, name: Apple, price: £0.30\n"));
 	}
+
+	@Test public void
+	regionIsEmpty_WhenCacheIsPopulatedAndThenCleared() throws IOException {
+		groceryStoreCache.start();
+
+		groceryStoreCache.populate(GROCERIES, new Grocery(101, "Apple", "£0.30"));
+		groceryStoreCache.clear(GROCERIES);
+
+		assertThat(groceryStoreCache.print(GROCERIES), is(""));
+	}
 }

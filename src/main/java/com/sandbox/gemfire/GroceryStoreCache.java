@@ -49,6 +49,10 @@ public class GroceryStoreCache {
 		cache.getRegion(region.name()).put(cacheItem.getId(), cacheItem);
 	}
 
+	public void clear(CacheRegion region) {
+		cache.getRegion(region.name()).clear();
+	}
+
 	public String print(CacheRegion region) {
 		StringBuilder cacheItems = new StringBuilder();
 		for (Entry<Object, Object> cacheItem : cache.getRegion(region.name()).entrySet()) {

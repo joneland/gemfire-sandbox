@@ -19,14 +19,6 @@ public class Grocery implements CacheItem {
 		return id;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public String getPrice() {
-		return price;
-	}
-
 	public String toString() {
 		return format("id: %d, name: %s, price: %s", id, name, price);
 	}
