@@ -7,11 +7,11 @@ import java.io.IOException;
 
 import com.sandbox.gemfire.server.GroceryStoreCache;
 
-public class GroceryStoreCacheLauncher {
+public class ApplicationLauncher {
 	private static final int SERVER_PORT = 10000;
 
 	public static void main(String[] args) {
-		new GroceryStoreCacheLauncher().launch();
+		new ApplicationLauncher().launch();
 	}
 
 	public void launch() {
