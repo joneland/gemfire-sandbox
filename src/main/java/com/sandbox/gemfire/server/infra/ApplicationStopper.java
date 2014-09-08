@@ -1,10 +1,6 @@
 package com.sandbox.gemfire.server.infra;
 
-import static javax.management.remote.JMXConnectorFactory.connect;
-
-import javax.management.MBeanServerConnection;
-import javax.management.ObjectName;
-import javax.management.remote.JMXServiceURL;
+import com.sandbox.gemfire.server.jmx.CacheJMXClient;
 
 public class ApplicationStopper {
 	public static void main(String[] args) {
@@ -12,17 +8,11 @@ public class ApplicationStopper {
 	}
 
 	public void stop() {
+		CacheJMXClient jmxClient = new CacheJMXClient("localhost", "10001");
 		try {
-			MBeanServerConnection mbeanServerConnection = connect(
-					new JMXServiceURL("service:jmx:rmi:///jndi/rmi://:10001/jmxrmi")).getMBeanServerConnection();
-
-			mbeanServerConnection.invoke(
-					new ObjectName("com.sandbox.gemfire:type=CacheServer"),
-					"stop",
-					new String[] {},
-					new String[] {});
+			jmxClient.stopCache();
 		} catch (Exception e) {
-			throw new RuntimeException("Failed to stop application", e);
+			throw new RuntimeException("Failed to call stop on cache", e);
 		}
 	}
 }
