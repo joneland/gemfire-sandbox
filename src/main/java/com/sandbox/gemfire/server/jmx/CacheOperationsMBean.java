@@ -8,4 +8,7 @@ public interface CacheOperationsMBean {
 
 	void clearGroceries();
 	void clearEmployees();
+
+	String printGroceries();
+	String printEmployees();
 }

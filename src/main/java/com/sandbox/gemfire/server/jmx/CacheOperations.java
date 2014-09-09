@@ -33,4 +33,12 @@ public class CacheOperations implements CacheOperationsMBean {
 	public void clearEmployees() {
 		cache.clear(EMPLOYEES);
 	}
+
+	public String printGroceries() {
+		return cache.print(GROCERIES);
+	}
+
+	public String printEmployees() {
+		return cache.print(EMPLOYEES);
+	}
 }
