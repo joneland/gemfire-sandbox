@@ -8,9 +8,8 @@ public class ApplicationStopper {
 	}
 
 	public void stop() {
-		CacheJMXClient jmxClient = new CacheJMXClient("localhost", "10001");
 		try {
-			jmxClient.stopCache();
+			new CacheJMXClient("localhost", "10001").stopCache();
 		} catch (Exception e) {
 			throw new RuntimeException("Failed to call stop on cache", e);
 		}

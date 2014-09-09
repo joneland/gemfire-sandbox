@@ -11,18 +11,18 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.sandbox.gemfire.server.GroceryStoreCache;
-import com.sandbox.gemfire.server.item.Employee;
-import com.sandbox.gemfire.server.item.Grocery;
+import com.sandbox.gemfire.server.jmx.CacheOperations;
 
-public class GroceryStoreCacheTest {
+public class CacheITest {
 	private static final int SERVER_PORT = 10000;
 
 	private GroceryStoreCache groceryStoreCache;
+	private CacheOperations cacheOperations;
 
 	@Before public void
 	initialise() {
 		groceryStoreCache = new GroceryStoreCache(SERVER_PORT, EMPLOYEES, GROCERIES);
+		cacheOperations = new CacheOperations(groceryStoreCache);
 	}
 
 	@After public void
@@ -54,16 +54,16 @@ public class GroceryStoreCacheTest {
 	printsGroceryDetails_WhenCacheIsPopulatedWithGrocery() throws IOException {
 		groceryStoreCache.start();
 
-		groceryStoreCache.populate(GROCERIES, new Grocery(101, "Apple", "£0.30"));
+		cacheOperations.populateGrocery(101, "Apple", "0.30");
 
-		assertThat(groceryStoreCache.print(GROCERIES), is("id: 101, name: Apple, price: £0.30\n"));
+		assertThat(groceryStoreCache.print(GROCERIES), is("id: 101, name: Apple, price: 0.30\n"));
 	}
 
 	@Test public void
 	printsEmployeeDetails_WhenCacheIsPopulatedWithEmployee() throws IOException {
 		groceryStoreCache.start();
 
-		groceryStoreCache.populate(EMPLOYEES, new Employee(501, "Jon", "Eland", "Cashier"));
+		cacheOperations.populateEmployee(501, "Jon", "Eland", "Cashier");
 
 		assertThat(groceryStoreCache.print(EMPLOYEES), is("id: 501, firstName: Jon, surname: Eland, role: Cashier\n"));
 	}
@@ -72,19 +72,29 @@ public class GroceryStoreCacheTest {
 	printsMultipleGroceryDetails_WhenCacheIsPopulatedWithMultipleGroceries() throws IOException {
 		groceryStoreCache.start();
 
-		groceryStoreCache.populate(GROCERIES, new Grocery(101, "Apple", "£0.30"));
-		groceryStoreCache.populate(GROCERIES, new Grocery(102, "Banana", "£0.15"));
+		cacheOperations.populateGrocery(101, "Apple", "0.30");
+		cacheOperations.populateGrocery(102, "Banana", "0.15");
 
-		assertThat(groceryStoreCache.print(GROCERIES), is("id: 102, name: Banana, price: £0.15\nid: 101, name: Apple, price: £0.30\n"));
+		assertThat(groceryStoreCache.print(GROCERIES), is("id: 102, name: Banana, price: 0.15\nid: 101, name: Apple, price: 0.30\n"));
 	}
 
 	@Test public void
-	regionIsEmpty_WhenCacheIsPopulatedAndThenCleared() throws IOException {
+	groceryRegionIsEmpty_WhenCacheIsPopulatedAndThenCleared() throws IOException {
 		groceryStoreCache.start();
 
-		groceryStoreCache.populate(GROCERIES, new Grocery(101, "Apple", "£0.30"));
-		groceryStoreCache.clear(GROCERIES);
+		cacheOperations.populateGrocery(101, "Apple", "£0.30");
+		cacheOperations.clearGroceries();
 
 		assertThat(groceryStoreCache.print(GROCERIES), is(""));
+	}
+
+	@Test public void
+	employeeRegionIsEmpty_WhenCacheIsPopulatedAndThenCleared() throws IOException {
+		groceryStoreCache.start();
+
+		cacheOperations.populateEmployee(501, "Jon", "Eland", "Cashier");
+		cacheOperations.clearEmployees();
+
+		assertThat(groceryStoreCache.print(EMPLOYEES), is(""));
 	}
 }

@@ -34,4 +34,38 @@ public class CacheJMXClient {
 				new String[] {},
 				new String[] {});
 	}
+
+	public void populateGrocery(int id, String name, String price) throws Exception {
+		server.invoke(
+				new ObjectName(JMX_OBJECT_NAME),
+				"populateGrocery",
+				new Object[] {id, name, price},
+				new String[] {Integer.class.getName(), String.class.getName(), String.class.getName()});
+	}
+
+	public void populateEmployee(int id, String firstName, String surname, String role) throws Exception {
+		server.invoke(
+				new ObjectName(JMX_OBJECT_NAME),
+				"populateEmployee",
+				new Object[] {id, firstName, surname, role},
+				new String[] {Integer.class.getName(), String.class.getName(), String.class.getName(), String.class.getName()});
+		
+	}
+
+	public void clearGroceries() throws Exception {
+		server.invoke(
+				new ObjectName(JMX_OBJECT_NAME),
+				"clearGroceries",
+				new Object[] {},
+				new String[] {});
+	}
+
+	public void clearEmployees() throws Exception {
+		server.invoke(
+				new ObjectName(JMX_OBJECT_NAME),
+				"clearEmployees",
+				new Object[] {},
+				new String[] {});
+		
+	}
 }
